@@ -1,0 +1,228 @@
+const express = require('express');
+const app = express();
+
+app.get('/:profile', (req, res) => {
+  const profile = req.params.profile.toLowerCase();
+  
+  const profileData = {
+    'kreedo': {
+      name: 'KREEDO',
+      title: 'shmurda.world/kreedo',
+      status: 'ELITE STATUS'
+    },
+    'womy': {
+      name: 'WOMY',
+      title: 'shmurda.world/womy', 
+      status: 'ELITE STATUS'
+    }
+  };
+
+  const user = profileData[profile] || { name: profile.toUpperCase(), title: `shmurda.world/${profile}`, status: 'NEW ELITE' };
+
+  res.send(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@shmurda | ${user.name}</title>
+
+<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1442689206207123516/1446447914397335655/shmurda.png?ex=69340518&is=6932b398&hm=cb6ef4db1a6c9ae45699e81e86980fbcc4e69556170312070bf568a7e62da125&=&format=webp&quality=lossless&width=797&height=797">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden; 
+    background: #111;
+    user-select: none; 
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.pinimg.com/736x/1f/43/e7/1f43e7d1d14e080ae729c03a124c1549.jpg') center/cover no-repeat;
+    filter: blur(40px);
+    z-index: -2;
+  }
+
+  .stars {
+    position: fixed; 
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    top: 0; left: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ff4444;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff4444, 0 0 16px #ff4444;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-10px) translateX(0); opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { transform: translateY(110vh) translateX(30px); opacity: 0; }
+  }
+
+  .profile-card {
+    background: rgba(0,0,0,0.8);
+    border: 2px solid #ff4444;
+    border-radius: 30px;
+    padding: 60px;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(255,68,68,0.4);
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    opacity: 1;
+    position: relative;
+    animation: cardFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .headline {
+    font-size: 90px;
+    color: #ff4444;
+    font-family: 'UnifrakturCook', cursive;
+    font-weight: bold;
+    text-shadow: 0 0 30px #ff4444, 0 0 60px #ff4444, 0 0 90px #ff4444;
+    animation: glowPulse 2s ease-in-out infinite alternate;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 30px #ff4444, 0 0 60px #ff4444; transform: scale(1); }
+    100% { text-shadow: 0 0 50px #ff4444, 0 0 100px #ff4444, 0 0 150px #ff4444; transform: scale(1.05); }
+  }
+
+  .sub-headline {
+    font-size: 45px;
+    color: white;
+    font-family: 'UnifrakturCook', cursive;
+    font-weight: bold;
+    text-shadow: 0 0 20px #fff, 0 0 40px #fff;
+    margin: 30px 0;
+  }
+
+  .status-badge {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff4444, #ff6666);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 32px;
+    color: white;
+    text-shadow: 0 0 10px #ff4444;
+    box-shadow: 0 0 30px rgba(255,68,68,0.6);
+    margin: 20px 0;
+    animation: badgeGlow 3s ease-in-out infinite alternate;
+    font-family: 'UnifrakturCook', cursive;
+  }
+
+  @keyframes badgeGlow {
+    0% { box-shadow: 0 0 30px rgba(255,68,68,0.6); }
+    100% { box-shadow: 0 0 50px rgba(255,68,68,0.9), 0 0 80px rgba(255,68,68,0.6); }
+  }
+
+  .nav-links {
+    margin-top: 50px;
+    font-size: 28px;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 0 10px #fff;
+    margin: 0 30px;
+    padding: 15px 30px;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    display: inline-block;
+    transition: all 0.3s;
+    font-family: 'UnifrakturCook', cursive;
+  }
+
+  .nav-links a:hover {
+    background: rgba(255,68,68,0.3);
+    border-color: #ff4444;
+    box-shadow: 0 0 30px rgba(255,68,68,0.5);
+    transform: scale(1.1);
+  }
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <div class="profile-card">
+    <div class="headline">${user.name}</div>
+    <div class="sub-headline">${user.title}</div>
+    
+    <div class="status-badge">${user.status}</div>
+    
+    <div class="sub-headline">shmurda approved</div>
+    
+    <div class="nav-links">
+      <a href="/">← shmurda home</a>
+      <a href="https://shmurda.world" target="_blank">shmurda.world</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "F12" || (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "C")) || (event.ctrlKey && event.key === "U")) {
+        event.preventDefault();
+        alert("nice fucking try bitch");
+      }
+    });
+
+    const starContainer = document.getElementById('stars');
+    for(let i = 0; i < 40; i++){
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = 5 + Math.random() * 7 + 's';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      starContainer.appendChild(star);
+    }
+
+    let tabText = "@shmurda | ${user.name}";          
+    let gap = "                    ";   
+    let fullText = tabText + gap;      
+    let position = 0;
+
+    function ultraSmoothTabScroll() {
+      document.title = fullText.slice(position) + fullText.slice(0, position);
+      position = (position + 1) % fullText.length;
+    }
+    setInterval(ultraSmoothTabScroll, 150);
+  </script>
+</body>
+</html>
+  `);
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/kreedo');
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Running on port ${port}`));
