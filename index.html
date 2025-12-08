@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@shmurda</title>
+
+<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1442689206207123516/1446447914397335655/shmurda.png?ex=69340518&is=6932b398&hm=cb6ef4db1a6c9ae45699e81e86980fbcc4e69556170312070bf568a7e62da125&=&format=webp&quality=lossless&width=797&height=797">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden; 
+    background: #111;
+    user-select: none; 
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.pinimg.com/736x/1f/43/e7/1f43e7d1d14e080ae729c03a124c1549.jpg') center/cover no-repeat;
+    filter: blur(40px);
+    z-index: -2;
+  }
+
+  #intro {
+    width: 100%;
+    min-height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 60px;
+    text-shadow: 0 0 20px #fff, 0 0 40px #fff;
+    cursor: pointer;
+    animation: pulse 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% { text-shadow: 0 0 20px #fff, 0 0 40px #fff; }
+    50% { text-shadow: 0 0 40px #fff, 0 0 80px #fff; }
+    100% { text-shadow: 0 0 20px #fff, 0 0 40px #fff; }
+  }
+
+  .stars {
+    position: fixed; 
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    top: 0; left: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+    box-shadow: 0 0 10px red, 0 0 20px red;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-10px) translateX(0); opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { transform: translateY(110vh) translateX(50px); opacity: 0; }
+  }
+
+  /* Profile card */
+  .profile-card {
+    background: rgba(0,0,0,0.6);
+    border-radius: 30px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(255,255,255,0.2);
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    opacity: 0;
+    transition: opacity 2s ease-in;
+    display: none;
+    position: relative;
+  }
+
+  .headline {
+    font-size: 80px;
+    color: white;
+    font-family: 'UnifrakturCook', cursive;
+    font-weight: bold;
+    text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #fff;
+    animation: glowMove 3s ease-in-out infinite alternate;
+    margin-bottom: 20px;
+  }
+
+  .sub-headline {
+    font-size: 50px;
+    color: white;
+    font-family: 'UnifrakturCook', cursive;
+    font-weight: bold;
+    text-shadow: 0 0 15px #fff, 0 0 30px #fff;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  @keyframes glowMove {
+    0% { text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #fff; transform: translateY(0); }
+    50% { text-shadow: 0 0 40px #fff, 0 0 80px #fff, 0 0 120px #fff; transform: translateY(-10px); }
+    100% { text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #fff; transform: translateY(0); }
+  }
+
+  .group-names {
+    font-size: 40px;
+    color: red;
+    text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .group-names span {
+    display: inline-block;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+
+  .group-names span:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 20px red, 0 0 40px red, 0 0 60px red;
+  }
+</style>
+</head>
+<body>
+
+  <div id="intro">smd</div>
+  <div class="stars" id="stars"></div>
+
+  <div class="profile-card" id="profileCard">
+    <div class="headline">shmurda only</div>
+    <div class="sub-headline">hall of fame</div>
+    <div class="group-names">
+      <span>Kreedo</span>
+      <span>Cudi</span>
+      <span>Remorse</span>
+    </div>
+
+    <div class="sub-headline">exclusive mfs</div>
+    <div class="group-names">
+      <span>Zalfy</span>
+      <span>Pryce</span>
+      <span>Hammer</span>
+      <span>Dreedo</span>
+      <span>Malik</span>
+      <span>Kasubi</span>
+      <span>Slick</span>
+      <span>Bugoy</span>
+      <span>Pryle</span>
+      <span>Qreedo</span>
+    </div>
+  </div>
+
+  <audio id="bg-music" src="ytmp3free.cc_fetty-wap-time-ft-monty-official-audio-youtubemp3free.org.mp3" loop style="display:none;"></audio>
+
+  <script>
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    document.addEventListener('keydown', function(event) {
+      if (
+        event.key === "F12" ||
+        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "C")) ||
+        (event.ctrlKey && event.key === "U")
+      ) {
+        event.preventDefault();
+        alert("nice fucking try bitch");
+      }
+    });
+
+    const starContainer = document.getElementById('stars');
+    for(let i = 0; i < 50; i++){
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = 4 + Math.random() * 6 + 's';
+      star.style.width = star.style.height = 4 + Math.random() * 6 + 'px';
+      starContainer.appendChild(star);
+    }
+
+    const intro = document.getElementById('intro');
+    const profileCard = document.getElementById('profileCard');
+
+    const audio = document.getElementById('bg-music');
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const track = audioCtx.createMediaElementSource(audio);
+    const gainNode = audioCtx.createGain();
+    gainNode.gain.value = 0;
+    track.connect(gainNode).connect(audioCtx.destination);
+
+    function fadeInMusic(duration = 5000){
+      audioCtx.resume().then(() => {
+        audio.play();
+        let volume = 0;
+        const step = 50 / duration;
+        const fadeInterval = setInterval(() => {
+          volume += step;
+          if(volume >= 1){
+            volume = 1;
+            clearInterval(fadeInterval);
+          }
+          gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+        }, 50);
+      });
+    }
+
+    function fadeOutMusic(duration = 2000){
+      let volume = gainNode.gain.value;
+      const step = 50 / duration;
+      const fadeInterval = setInterval(() => {
+        volume -= step;
+        if(volume <= 0){
+          volume = 0;
+          clearInterval(fadeInterval);
+          audio.pause();
+        }
+        gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+      }, 50);
+    }
+
+    function start() {
+      intro.style.display = 'none';
+      profileCard.style.display = 'block';
+      setTimeout(() => profileCard.style.opacity = '1', 50);
+      fadeInMusic();
+      window.removeEventListener('click', start);
+      window.removeEventListener('touchstart', start);
+      window.removeEventListener('keydown', start);
+    }
+
+    window.addEventListener('click', start);
+    window.addEventListener('touchstart', start);
+    window.addEventListener('keydown', start);
+
+    window.addEventListener('beforeunload', fadeOutMusic);
+
+    let tabText = "@shmurda";          
+    let gap = "                    ";   
+    let fullText = tabText + gap;      
+    let position = 0;
+
+    function ultraSmoothTabScroll() {
+      document.title = fullText.slice(position) + fullText.slice(0, position);
+      position = (position + 1) % fullText.length;
+    }
+
+    setInterval(ultraSmoothTabScroll, 100);
+  </script>
+</body>
+</html>
