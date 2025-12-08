@@ -1,31 +1,9 @@
-const express = require('express');
-const app = express();
-
-app.get('/:profile', (req, res) => {
-  const profile = req.params.profile.toLowerCase();
-  
-  const profileData = {
-    'kreedo': {
-      name: 'KREEDO',
-      title: 'shmurda.world/kreedo',
-      status: 'ELITE STATUS'
-    },
-    'womy': {
-      name: 'WOMY',
-      title: 'shmurda.world/womy', 
-      status: 'ELITE STATUS'
-    }
-  };
-
-  const user = profileData[profile] || { name: profile.toUpperCase(), title: `shmurda.world/${profile}`, status: 'NEW ELITE' };
-
-  res.send(`
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@shmurda | ${user.name}</title>
+<title>@shmurda | kreedo</title>
 
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1442689206207123516/1446447914397335655/shmurda.png?ex=69340518&is=6932b398&hm=cb6ef4db1a6c9ae45699e81e86980fbcc4e69556170312070bf568a7e62da125&=&format=webp&quality=lossless&width=797&height=797">
 
@@ -78,6 +56,7 @@ app.get('/:profile', (req, res) => {
     100% { transform: translateY(110vh) translateX(30px); opacity: 0; }
   }
 
+  /* Profile card */
   .profile-card {
     background: rgba(0,0,0,0.8);
     border: 2px solid #ff4444;
@@ -172,10 +151,10 @@ app.get('/:profile', (req, res) => {
   <div class="stars" id="stars"></div>
 
   <div class="profile-card">
-    <div class="headline">${user.name}</div>
-    <div class="sub-headline">${user.title}</div>
+    <div class="headline">WOMY</div>
+    <div class="sub-headline">shmurda.world/womy</div>
     
-    <div class="status-badge">${user.status}</div>
+    <div class="status-badge">ELITE STATUS</div>
     
     <div class="sub-headline">shmurda approved</div>
     
@@ -186,6 +165,7 @@ app.get('/:profile', (req, res) => {
   </div>
 
   <script>
+    // Disable right-click & dev tools
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.addEventListener('keydown', function(event) {
       if (event.key === "F12" || (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "C")) || (event.ctrlKey && event.key === "U")) {
@@ -194,6 +174,7 @@ app.get('/:profile', (req, res) => {
       }
     });
 
+    // Stars animation
     const starContainer = document.getElementById('stars');
     for(let i = 0; i < 40; i++){
       const star = document.createElement('div');
@@ -204,7 +185,8 @@ app.get('/:profile', (req, res) => {
       starContainer.appendChild(star);
     }
 
-    let tabText = "@shmurda | ${user.name}";          
+    // Dynamic title scroll
+    let tabText = "@shmurda | womy";          
     let gap = "                    ";   
     let fullText = tabText + gap;      
     let position = 0;
@@ -217,12 +199,3 @@ app.get('/:profile', (req, res) => {
   </script>
 </body>
 </html>
-  `);
-});
-
-app.get('/', (req, res) => {
-  res.redirect('/kreedo');
-});
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Running on port ${port}`));
