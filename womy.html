@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@shmurda | womy</title>
 
+<!-- Ensure your image link is correct here -->
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1442689206207123516/1446447914397335655/shmurda.png?ex=69340518&is=6932b398&hm=cb6ef4db1a6c9ae45699e81e86980fbcc4e69556170312070bf568a7e62da125&=&format=webp&quality=lossless&width=797&height=797">
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
 
+  /* Base Styles (Full Page) */
   body {
     margin: 0;
     padding: 0;
@@ -56,7 +58,7 @@
     100% { transform: translateY(110vh) translateX(30px); opacity: 0; }
   }
 
-  /* Profile card */
+  /* Profile card (Full Page) */
   .profile-card {
     background: rgba(0,0,0,0.8);
     border: 2px solid #ff4444;
@@ -114,6 +116,8 @@
     margin: 20px 0;
     animation: badgeGlow 3s ease-in-out infinite alternate;
     font-family: 'UnifrakturCook', cursive;
+    /* Transition for dynamic changes */
+    transition: all 0.3s ease; 
   }
 
   @keyframes badgeGlow {
@@ -145,18 +149,98 @@
     box-shadow: 0 0 30px rgba(255,68,68,0.5);
     transform: scale(1.1);
   }
+
+
+  /* --- EMBED CARD STYLES (Overrides applied via .embed-card class) --- */
+
+  /* Reset body styles for embedding */
+  .embed-card {
+    background: transparent !important; 
+    overflow: hidden; 
+    position: static;
+    user-select: auto;
+  }
+  
+  /* Hide background elements for card mode */
+  .embed-card::before,
+  .embed-card .stars {
+    display: none !important;
+  }
+
+  /* Reset body container styles */
+  .embed-card body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  /* Shrink and simplify the profile card */
+  .embed-card .profile-card {
+    width: 300px;
+    max-width: 300px;
+    padding: 20px;
+    margin: 0 auto; 
+    border-radius: 15px;
+    border: 1px solid #ff4444; 
+    box-shadow: 0 0 15px rgba(255,68,68,0.4); 
+    animation: none; 
+  }
+
+  /* Reduce text sizes */
+  .embed-card .headline {
+    font-size: 35px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 15px #ff4444;
+    letter-spacing: 2px;
+    animation: none; 
+  }
+
+  .embed-card .sub-headline {
+    font-size: 16px;
+    text-shadow: none;
+    margin: 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .embed-card .status-badge {
+    padding: 8px 15px;
+    font-size: 18px;
+    box-shadow: none;
+    animation: none; 
+    margin: 10px 0;
+  }
+
+  .embed-card .nav-links {
+    margin-top: 15px;
+  }
+
+  .embed-card .nav-links a {
+    font-size: 14px;
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: none;
+    transform: none;
+  }
+
+  .embed-card .nav-links a:hover {
+    box-shadow: none;
+    transform: none;
+  }
 </style>
 </head>
-<body>
+<body id="main-body">
   <div class="stars" id="stars"></div>
 
   <div class="profile-card">
     <div class="headline">WOMY</div>
-    <div class="sub-headline">shmurda.world/womy</div>
+    <!-- This sub-headline will be updated with your Lanyard data -->
+    <div class="sub-headline" id="lanyard-activity-text">shmurda approved</div> 
     
-    <div class="status-badge">ELITE STATUS</div>
-    
-    <div class="sub-headline">shmurda approved</div>
+    <!-- This badge will be updated with your Lanyard status -->
+    <div class="status-badge" id="lanyard-status-text">ELITE STATUS</div> 
     
     <div class="nav-links">
       <a href="/">← shmurda home</a>
@@ -165,7 +249,103 @@
   </div>
 
   <script>
-    // Disable right-click & dev tools
+    const mainBody = document.getElementById('main-body');
+    const urlParams = new URLSearchParams(window.location.search);
+    let is_card_mode = false;
+
+
+    /* --- LANYARD INTEGRATION --- */
+    async function updateProfileFromLanyard() {
+        // ⚠️ START: REPLACE 'YOUR_DISCORD_ID_HERE' with your actual Discord User ID ⚠️
+        const discordID = '1184454687865438218'; 
+        // ⚠️ END: REPLACE ID ⚠️
+        
+        const lanyardApiUrl = `https://api.lanyard.ws/v1/users/${discordID}`;
+        
+        try {
+            const response = await fetch(lanyardApiUrl);
+            const { success, data } = await response.json();
+
+            if (success && data) {
+                const statusBadge = document.getElementById('lanyard-status-text');
+                const activityText = document.getElementById('lanyard-activity-text');
+                
+                // 1. Update Status Badge based on Discord Status
+                let statusText = "UNKNOWN";
+                switch(data.discord_status) {
+                    case 'online': statusText = 'ONLINE'; break;
+                    case 'idle': statusText = 'IDLE'; break;
+                    case 'dnd': statusText = 'DO NOT DISTURB'; break;
+                    case 'offline':
+                    case 'invisible': statusText = 'OFFLINE'; break;
+                    default: statusText = 'ELITE STATUS'; break;
+                }
+                statusBadge.textContent = statusText;
+                
+                // 2. Update Activity Text
+                let currentActivity = 'shmurda approved'; // Default fallback text
+                
+                // Check if they are listening to Spotify (type 2) or have a custom status (type 4) or gaming
+                const primaryActivity = data.activities.find(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
+                
+                if (primaryActivity) {
+                     let detail = primaryActivity.details || primaryActivity.state || primaryActivity.name;
+                     if (detail) {
+                         // Add an emoji and truncate for a cleaner look
+                         currentActivity = `▶️ ${detail.substring(0, 30)}${detail.length > 30 ? '...' : ''}`;
+                     }
+                } 
+                
+                activityText.textContent = currentActivity;
+            }
+        } catch (error) {
+            console.error("Error fetching Lanyard data:", error);
+        }
+    }
+
+    // Call the Lanyard function and set it to refresh every 5 seconds
+    updateProfileFromLanyard(); 
+    setInterval(updateProfileFromLanyard, 5000); 
+
+
+    /* --- FULL PAGE / CARD MODE DETECTION --- */
+
+    // 1. Check for Embed Card Mode
+    if (urlParams.get('mode') === 'card') {
+        mainBody.classList.add('embed-card');
+        is_card_mode = true;
+    } 
+
+    // Only run the intensive full-screen animations and title scroll 
+    // if we are NOT in card mode.
+    if (!is_card_mode) {
+        // --- Full Page Animations ---
+        
+        // Stars animation
+        const starContainer = document.getElementById('stars');
+        for(let i = 0; i < 40; i++){
+          const star = document.createElement('div');
+          star.classList.add('star');
+          star.style.left = Math.random() * 100 + 'vw';
+          star.style.animationDuration = 5 + Math.random() * 7 + 's';
+          star.style.animationDelay = Math.random() * 5 + 's';
+          starContainer.appendChild(star);
+        }
+
+        // Dynamic title scroll
+        let tabText = "@shmurda | womy";          
+        let gap = "                    ";   
+        let fullText = tabText + gap;      
+        let position = 0;
+
+        function ultraSmoothTabScroll() {
+          document.title = fullText.slice(position) + fullText.slice(0, position);
+          position = (position + 1) % fullText.length;
+        }
+        setInterval(ultraSmoothTabScroll, 150);
+    }
+    
+    // Disable right-click & dev tools (Runs in both modes)
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.addEventListener('keydown', function(event) {
       if (event.key === "F12" || (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "C")) || (event.ctrlKey && event.key === "U")) {
@@ -173,29 +353,6 @@
         alert("nice fucking try bitch");
       }
     });
-
-    // Stars animation
-    const starContainer = document.getElementById('stars');
-    for(let i = 0; i < 40; i++){
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.left = Math.random() * 100 + 'vw';
-      star.style.animationDuration = 5 + Math.random() * 7 + 's';
-      star.style.animationDelay = Math.random() * 5 + 's';
-      starContainer.appendChild(star);
-    }
-
-    // Dynamic title scroll
-    let tabText = "@shmurda | womy";          
-    let gap = "                    ";   
-    let fullText = tabText + gap;      
-    let position = 0;
-
-    function ultraSmoothTabScroll() {
-      document.title = fullText.slice(position) + fullText.slice(0, position);
-      position = (position + 1) % fullText.length;
-    }
-    setInterval(ultraSmoothTabScroll, 150);
   </script>
 </body>
 </html>
