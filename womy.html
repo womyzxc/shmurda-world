@@ -11,7 +11,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
 
-  /* Base Styles (Full Page) */
+  /* ---------- BASE STYLES (FULL PAGE) ---------- */
+
   body {
     margin: 0;
     padding: 0;
@@ -116,7 +117,6 @@
     margin: 20px 0;
     animation: badgeGlow 3s ease-in-out infinite alternate;
     font-family: 'UnifrakturCook', cursive;
-    /* Transition for dynamic changes */
     transition: all 0.3s ease; 
   }
 
@@ -150,10 +150,8 @@
     transform: scale(1.1);
   }
 
+  /* ---------- EMBED CARD STYLES (Overrides applied via .embed-card class) ---------- */
 
-  /* --- EMBED CARD STYLES (Overrides applied via .embed-card class) --- */
-
-  /* Reset body styles for embedding */
   .embed-card {
     background: transparent !important; 
     overflow: hidden; 
@@ -161,20 +159,17 @@
     user-select: auto;
   }
   
-  /* Hide background elements for card mode */
   .embed-card::before,
   .embed-card .stars {
     display: none !important;
   }
 
-  /* Reset body container styles */
   .embed-card body {
     margin: 0;
     padding: 0;
     background: transparent;
   }
 
-  /* Shrink and simplify the profile card */
   .embed-card .profile-card {
     width: 300px;
     max-width: 300px;
@@ -186,7 +181,6 @@
     animation: none; 
   }
 
-  /* Reduce text sizes */
   .embed-card .headline {
     font-size: 35px;
     margin-bottom: 5px;
@@ -195,16 +189,16 @@
     animation: none; 
   }
 
-  .embed-card .sub-headline {
+  .embed-card #lanyard-activity-text { 
     font-size: 16px;
     text-shadow: none;
     margin: 10px 0;
-    white-space: nowrap;
+    white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .embed-card .status-badge {
+  .embed-card #lanyard-status-text { 
     padding: 8px 15px;
     font-size: 18px;
     box-shadow: none;
@@ -236,14 +230,14 @@
 
   <div class="profile-card">
     <div class="headline">WOMY</div>
-    <!-- This sub-headline will be updated with your Lanyard data -->
-    <div class="sub-headline" id="lanyard-activity-text">shmurda approved</div> 
+    <!-- ID for Lanyard Activity -->
+    <div class="sub-headline" id="lanyard-activity-text">shmurda.world/womy</div>
     
-    <!-- This badge will be updated with your Lanyard status -->
-    <div class="status-badge" id="lanyard-status-text">ELITE STATUS</div> 
+    <!-- ID for Lanyard Status -->
+    <div class="status-badge" id="lanyard-status-text">ELITE STATUS</div>
     
     <div class="nav-links">
-      <a href="/">← shmurda home</a>
+      <a href="index.html">← shmurda home</a>
       <a href="https://shmurda.world" target="_blank">shmurda.world</a>
     </div>
   </div>
@@ -258,7 +252,7 @@
     async function updateProfileFromLanyard() {
         // ⚠️ START: REPLACE 'YOUR_DISCORD_ID_HERE' with your actual Discord User ID ⚠️
         const discordID = '1184454687865438218'; 
-        // ⚠️ END: REPLACE ID ⚠️
+        // ⚠️ END: REPLACE ID HERE ⚠️
         
         const lanyardApiUrl = `https://api.lanyard.ws/v1/users/${discordID}`;
         
@@ -283,9 +277,9 @@
                 statusBadge.textContent = statusText;
                 
                 // 2. Update Activity Text
-                let currentActivity = 'shmurda approved'; // Default fallback text
+                let currentActivity = 'shmurda.world/womy'; // Default fallback text
                 
-                // Check if they are listening to Spotify (type 2) or have a custom status (type 4) or gaming
+                // Check for a custom status or activity
                 const primaryActivity = data.activities.find(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
                 
                 if (primaryActivity) {
@@ -308,19 +302,15 @@
     setInterval(updateProfileFromLanyard, 5000); 
 
 
-    /* --- FULL PAGE / CARD MODE DETECTION --- */
+    /* --- FULL PAGE / CARD MODE DETECTION & ANIMATIONS --- */
 
     // 1. Check for Embed Card Mode
     if (urlParams.get('mode') === 'card') {
         mainBody.classList.add('embed-card');
-        is_card_mode = true;
+        is_card_mode = true; 
     } 
 
-    // Only run the intensive full-screen animations and title scroll 
-    // if we are NOT in card mode.
     if (!is_card_mode) {
-        // --- Full Page Animations ---
-        
         // Stars animation
         const starContainer = document.getElementById('stars');
         for(let i = 0; i < 40; i++){
