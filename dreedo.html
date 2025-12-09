@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@shmurda | dreedo</title>
 
-<!-- Ensure your image link is correct here -->
+
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1442689206207123516/1446447914397335655/shmurda.png?ex=69340518&is=6932b398&hm=cb6ef4db1a6c9ae45699e81e86980fbcc4e69556170312070bf568a7e62da125&=&format=webp&quality=lossless&width=797&height=797">
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
 
-  /* ---------- BASE STYLES (FULL PAGE) ---------- */
+
 
   body {
     margin: 0;
@@ -59,7 +59,7 @@
     100% { transform: translateY(110vh) translateX(30px); opacity: 0; }
   }
 
-  /* Profile card (Full Page) */
+
   .profile-card {
     background: rgba(0,0,0,0.8);
     border: 2px solid #ff4444;
@@ -150,7 +150,7 @@
     transform: scale(1.1);
   }
 
-  /* ---------- EMBED CARD STYLES (Overrides applied via .embed-card class) ---------- */
+ 
 
   .embed-card {
     background: transparent !important; 
@@ -230,10 +230,10 @@
 
   <div class="profile-card">
     <div class="headline">DREEDO</div>
-    <!-- ID for Lanyard Activity -->
+
     <div class="sub-headline" id="lanyard-activity-text">shmurda.world/dreedo</div>
     
-    <!-- ID for Lanyard Status -->
+  
     <div class="status-badge" id="lanyard-status-text">ELITE STATUS</div>
     
     <div class="nav-links">
@@ -248,11 +248,11 @@
     let is_card_mode = false;
 
 
-    /* --- LANYARD INTEGRATION --- */
+  
     async function updateProfileFromLanyard() {
-        // ⚠️ START: REPLACE 'YOUR_DISCORD_ID_HERE' with your actual Discord User ID ⚠️
-        const discordID = 'YOUR_DISCORD_ID_FOR_DREEDO'; 
-        // ⚠️ END: REPLACE ID HERE ⚠️
+       
+        const discordID = 'KUNIN MO NA SRC'; 
+      
         
         const lanyardApiUrl = `https://api.lanyard.ws/v1/users/${discordID}`;
         
@@ -264,7 +264,7 @@
                 const statusBadge = document.getElementById('lanyard-status-text');
                 const activityText = document.getElementById('lanyard-activity-text');
                 
-                // 1. Update Status Badge based on Discord Status
+              
                 let statusText = "UNKNOWN";
                 switch(data.discord_status) {
                     case 'online': statusText = 'ONLINE'; break;_
