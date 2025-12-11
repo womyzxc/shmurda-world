@@ -11,6 +11,7 @@
     
     /* Base Background Container for both video and image */
     .background-container {
+        /* *** MODIFIED: Changed the fixed black background to white *** */
         position: fixed;
         top: 0;
         left: 0;
@@ -20,6 +21,7 @@
         height: auto;
         z-index: -100; /* Puts the background behind all other content */
         overflow: hidden;
+        background-color: white; /* <--- NEW: Set the background to white */
     }
     
     /* 1. Video Background Styles (Currently Commented Out) */
@@ -34,23 +36,28 @@
     */
     
     /* 2. Image Background Styles (Currently Active - FIXED FILE NAME CASE TO 'BG.PNG') */
+    /* *** MODIFIED: Commenting out the image background to enforce solid white *** */
+    /*
     .image-background {
-        background-image: url('bg.png'); /* <-- *** FIX: Updated to match your specified case *** */
+        background-image: url('bg.png'); 
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         width: 100%;
         height: 100%;
     }
+    */
     
     /* Overlay to improve text readability */
+    /* *** MODIFIED: Will remove the video overlay element from the HTML, 
+     * but leaving the style here in case you reintroduce the element. *** */
     .video-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+      background: none; /* Changed from rgba(0, 0, 0, 0.4) to none */
       z-index: -99;
     }
 
@@ -65,10 +72,12 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        /* *** MODIFIED: Changed wrapper background for white page readability *** */
         padding: 8px 12px;
-        background: rgba(10, 10, 10, 0.85);
+        background: rgba(255, 255, 255, 0.85); /* Changed from dark to light */
         border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Adjusted shadow */
+        color: #000; /* Added text color for the 🔊 emoji/text */
     }
 
     #volume-slider {
@@ -76,7 +85,7 @@
         appearance: none;
         width: 100px;
         height: 8px;
-        background: #555;
+        background: #ccc; /* Adjusted color for white background */
         border-radius: 4px;
         outline: none;
         opacity: 0.7;
@@ -94,7 +103,7 @@
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background: #fff;
+        background: #000; /* Adjusted color for white background */
         cursor: pointer;
     }
 
@@ -102,7 +111,7 @@
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background: #fff;
+        background: #000; /* Adjusted color for white background */
         cursor: pointer;
     }
     
@@ -111,24 +120,29 @@
     /* ------------------------------------- */
     body {
       margin: 0;
-      background: #000;
+      /* *** MODIFIED: Removed specific body background as .background-container handles it *** */
+      background: transparent; 
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      color: #fff;
+      /* *** MODIFIED: Changed text color to black for readability on white background *** */
+      color: #000; 
       position: relative; 
     }
     .card {
-      background: rgba(10, 10, 10, 0.85); 
+      /* *** MODIFIED: Changed card background to be white/light for the new background *** */
+      background: rgba(255, 255, 255, 0.85); /* Changed from dark to light/white */
       backdrop-filter: blur(5px); 
       width: 380px;
       padding: 30px;
       border-radius: 25px;
       text-align: center;
+      /* Kept the shadow, but you might want to adjust the color */
       box-shadow: 0 0 25px rgba(128, 0, 255, 0.3);
       z-index: 10; 
+      color: #000; /* Ensure card text is black */
     }
     .pfp {
       width: 120px;
@@ -160,8 +174,10 @@
         justify-content: center;
         padding: 10px 0;
         border-radius: 12px;
+        /* *** MODIFIED: Changed username wrapper background to dark for contrast *** */
         background: #111;
         margin-top: 10px;
+        color: #fff; /* Ensure text inside is white/light */
     }
     .username {
       font-size: 20px;
@@ -172,6 +188,7 @@
       margin-top: 20px;
       font-size: 14px;
       opacity: 0.8;
+      color: #000; /* Ensure status text is black */
     }
     .views {
       margin-top: 25px;
@@ -181,6 +198,7 @@
       justify-content: center;
       align-items: center;
       gap: 8px;
+      color: #000; /* Ensure views text is black */
     }
     .emoji-bar {
       display: flex;
@@ -188,11 +206,13 @@
       gap: 10px;
       margin-top: 20px;
       font-size: 22px;
+      color: #000; /* Ensure emojis are visible if they were using a dark color */
     }
     /* Style for the typing effect (Cursor) */
     #activity-text { 
         display: inline-block;
-        border-right: 2px solid white;
+        /* *** MODIFIED: Changed cursor color to black for white background *** */
+        border-right: 2px solid black; 
         padding-right: 4px;
         min-width: 150px; 
     }
@@ -227,13 +247,12 @@
     </video>
     -->
     
-    <!-- Image Background (Currently Active) -->
-    <div class="image-background"></div>
+    <!-- *** NOTE: Image background commented out in CSS, so this element is effectively gone *** -->
+    <!-- <div class="image-background"></div> -->
 
   </div>
   
-  <!-- Overlay to improve text readability -->
-  <div class="video-overlay"></div>
+  <!-- *** MODIFIED: Removed the dark video-overlay element for white background *** -->
 
   <div class="card">
     <img 
@@ -261,6 +280,7 @@
 
     <div class="icons">
       <a href="https://discord.com/users/1184454687865438218" target="_blank">
+        <!-- Assuming discord.png, ig.png, etc., are compatible with a white background -->
         <img src="discord.png" alt="Discord" />
       </a>
       <a href="https://www.instagram.com/womy.zxc/" target="_blank">
