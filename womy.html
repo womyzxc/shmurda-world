@@ -33,9 +33,9 @@
     }
     */
     
-    /* 2. Image Background Styles (Currently Active - CHANGED TO 'bg.png') */
+    /* 2. Image Background Styles (Currently Active - FIXED FILE NAME CASE TO 'BG.PNG') */
     .image-background {
-        background-image: url('bg.png'); /* Set to 'bg.png' */
+        background-image: url('bg.png'); /* <-- *** FIX: Updated to match your specified case *** */
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -55,13 +55,13 @@
     }
 
     /* ------------------------------------- */
-    /* NEW: Volume Control Styles */
+    /* Volume Control Styles */
     /* ------------------------------------- */
     .volume-control-wrapper {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        z-index: 100; /* Ensure it's above everything */
+        z-index: 100; 
         display: flex;
         align-items: center;
         gap: 8px;
@@ -87,14 +87,14 @@
         opacity: 1;
     }
 
-    /* Handle for WebKit/Blink (Chrome, Safari, Opera) and Firefox */
+    /* Handle for volume slider */
     #volume-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background: #fff; /* White handle */
+        background: #fff;
         cursor: pointer;
     }
 
@@ -153,11 +153,9 @@
       transform: scale(1.15);
     }
 
-    /* ------------------------------------- */
-    /* Username Styling (No Badges) */
-    /* ------------------------------------- */
+    /* Username Styling */
     .username-wrapper {
-        display: flex; /* Use flexbox to align name */
+        display: flex; 
         align-items: center;
         justify-content: center;
         padding: 10px 0;
@@ -168,9 +166,7 @@
     .username {
       font-size: 20px;
       margin: 0;
-      /* Name is now centered */
     }
-    /* ------------------------------------- */
     
     .status {
       margin-top: 20px;
@@ -206,7 +202,6 @@
 
   <!-- ============================================== -->
   <!-- AUDIO BACKGROUND ELEMENT (src='revrev.mp3')  -->
-  <!-- Initial volume set to 0.5 (50%), a good default. -->
   <!-- ============================================== -->
   <audio id="background-music" src="revrev.mp3" autoplay loop preload="auto" volume="0.5"></audio>
 
@@ -254,7 +249,7 @@
       <span>💎</span>
     </div>
 
-    <!-- Wrapper for Username (Badges HTML container removed) -->
+    <!-- Wrapper for Username -->
     <div class="username-wrapper">
         <div class="username" id="discord-username">Loading...</div>
     </div>
