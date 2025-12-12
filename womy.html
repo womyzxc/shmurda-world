@@ -1,347 +1,186 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@shmurda | womy</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>@shmurda | womy</title>
+  <style>
+    :root{
+      --main-color: #c084fc;
+      --card-bg: rgba(10,10,10,0.85);
+      --glass-blur: 5px;
+    }
+    @keyframes glow {
+        0% { box-shadow: 0 0 12px rgba(255,0,0,0.35), 0 0 6px rgba(255,0,0,0.18); }
+        100% { box-shadow: 0 0 26px rgba(255,0,0,0.7), 0 0 10px rgba(255,0,0,0.35); }
+    }
 
-
-<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1442689206207123516/1446447914397335655/shmurda.png?ex=69340518&is=6932b398&hm=cb6ef4db1a6c9ae45699e81e86980fbcc4e69556170312070bf568a7e62da125&=&format=webp&quality=lossless&width=797&height=797">
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-
-  
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    overflow-x: hidden; 
-    background: #111;
-    user-select: none; 
-    position: relative;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; 
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://i.pinimg.com/736x/1f/43/e7/1f43e7d1d14e080ae729c03a124c1549.jpg') center/cover no-repeat;
-    filter: blur(40px);
-    z-index: -2;
-  }
-
-  .stars {
-    position: fixed; 
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
-    top: 0; left: 0;
-  }
-
-  .star {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #ff4444;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #ff4444, 0 0 16px #ff4444;
-    animation: fall linear infinite;
-  }
-
-  @keyframes fall {
-    0% { transform: translateY(-10px) translateX(0); opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { transform: translateY(110vh) translateX(30px); opacity: 0; }
-  }
-
- 
-  .profile-card {
-    background: rgba(0,0,0,0.8);
-    border: 2px solid #ff4444;
-    border-radius: 30px;
-    padding: 60px;
-    text-align: center;
-    box-shadow: 0 0 60px rgba(255,68,68,0.4);
-    width: 90%;
-    max-width: 1000px;
-    margin: 50px auto;
-    opacity: 1;
-    position: relative;
-    animation: cardFloat 4s ease-in-out infinite;
-  }
-
-  @keyframes cardFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-  }
-
-  .headline {
-    font-size: 90px;
-    color: #ff4444;
-    font-family: 'UnifrakturCook', cursive;
-    font-weight: bold;
-    text-shadow: 0 0 30px #ff4444, 0 0 60px #ff4444, 0 0 90px #ff4444;
-    animation: glowPulse 2s ease-in-out infinite alternate;
-    margin-bottom: 30px;
-    letter-spacing: 5px;
-  }
-
-  @keyframes glowPulse {
-    0% { text-shadow: 0 0 30px #ff4444, 0 0 60px #ff4444; transform: scale(1); }
-    100% { text-shadow: 0 0 50px #ff4444, 0 0 100px #ff4444, 0 0 150px #ff4444; transform: scale(1.05); }
-  }
-
-  .sub-headline {
-    font-size: 45px;
-    color: white;
-    font-family: 'UnifrakturCook', cursive;
-    font-weight: bold;
-    text-shadow: 0 0 20px #fff, 0 0 40px #fff;
-    margin: 30px 0;
-  }
-
-  .status-badge {
-    display: inline-block;
-    background: linear-gradient(45deg, #ff4444, #ff6666);
-    padding: 15px 40px;
-    border-radius: 50px;
-    font-size: 32px;
-    color: white;
-    text-shadow: 0 0 10px #ff4444;
-    box-shadow: 0 0 30px rgba(255,68,68,0.6);
-    margin: 20px 0;
-    animation: badgeGlow 3s ease-in-out infinite alternate;
-    font-family: 'UnifrakturCook', cursive;
-    transition: all 0.3s ease; 
-  }
-
-  @keyframes badgeGlow {
-    0% { box-shadow: 0 0 30px rgba(255,68,68,0.6); }
-    100% { box-shadow: 0 0 50px rgba(255,68,68,0.9), 0 0 80px rgba(255,68,68,0.6); }
-  }
-
-  .nav-links {
-    margin-top: 50px;
-    font-size: 28px;
-  }
-
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    text-shadow: 0 0 10px #fff;
-    margin: 0 30px;
-    padding: 15px 30px;
-    border: 2px solid transparent;
-    border-radius: 25px;
-    display: inline-block;
-    transition: all 0.3s;
-    font-family: 'UnifrakturCook', cursive;
-  }
-
-  .nav-links a:hover {
-    background: rgba(255,68,68,0.3);
-    border-color: #ff4444;
-    box-shadow: 0 0 30px rgba(255,68,68,0.5);
-    transform: scale(1.1);
-  }
-
-  
-
-  .embed-card {
-    background: transparent !important; 
-    overflow: hidden; 
-    position: static;
-    user-select: auto;
-  }
-  
-  .embed-card::before,
-  .embed-card .stars {
-    display: none !important;
-  }
-
-  .embed-card body {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-  }
-
-  .embed-card .profile-card {
-    width: 300px;
-    max-width: 300px;
-    padding: 20px;
-    margin: 0 auto; 
-    border-radius: 15px;
-    border: 1px solid #ff4444; 
-    box-shadow: 0 0 15px rgba(255,68,68,0.4); 
-    animation: none; 
-  }
-
-  .embed-card .headline {
-    font-size: 35px;
-    margin-bottom: 5px;
-    text-shadow: 0 0 15px #ff4444;
-    letter-spacing: 2px;
-    animation: none; 
-  }
-
-  .embed-card #lanyard-activity-text { 
-    font-size: 16px;
-    text-shadow: none;
-    margin: 10px 0;
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .embed-card #lanyard-status-text { 
-    padding: 8px 15px;
-    font-size: 18px;
-    box-shadow: none;
-    animation: none; 
-    margin: 10px 0;
-  }
-
-  .embed-card .nav-links {
-    margin-top: 15px;
-  }
-
-  .embed-card .nav-links a {
-    font-size: 14px;
-    margin: 0 5px;
-    padding: 5px 10px;
-    border-radius: 10px;
-    transition: none;
-    transform: none;
-  }
-
-  .embed-card .nav-links a:hover {
-    box-shadow: none;
-    transform: none;
-  }
-</style>
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+      color:var(--main-color);
+      font-family:Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      animation:fadeIn .6s ease;
+    }
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .background-container{position:fixed;inset:0;z-index:-2;overflow:hidden}
+    .image-background{position:absolute;inset:0;background: url('https://i.imgur.com/8HL4aLf.png') center/cover no-repeat;filter:blur(4px) brightness(.45)}
+    #video-background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;mix-blend-mode:normal}
+    .video-overlay{position:fixed;inset:0;background: rgba(0,0,0,0.35);z-index:-1}
+    .card{
+      width: min(92%, 420px);
+      padding: 28px;
+      border-radius: 18px;
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      text-align:center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      animation: glow 2.2s infinite alternate;
+      z-index:10;
+    }
+    .pfp{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;border:3px solid rgba(255,255,255,0.06)}
+    .username{font-size:20px;padding:8px 12px;border-radius:10px;background:#0b0b0b;margin-top:8px;color:inherit}
+    .status{margin-top:16px;font-size:14px;opacity:.9;color:inherit}
+    .status strong{color:#e9e5ff}
+    .icons{display:flex;justify-content:center;gap:12px;margin:18px 0}
+    .icons img{width:40px;height:40px;cursor:pointer;transition:transform .18s,filter .25s;filter:drop-shadow(0 0 6px rgba(255,255,255,0.45))}
+    .icons img:hover{transform:scale(1.18);filter:drop-shadow(0 0 14px rgba(200,100,255,0.25))}
+    .emoji-bar{display:flex;justify-content:center;gap:10px;margin-top:12px;font-size:22px}
+    .views{margin-top:18px;opacity:.75;font-size:14px}
+    .volume-control-wrapper{
+      position:fixed;bottom:20px;right:20px;z-index:100;display:flex;align-items:center;gap:8px;
+      padding:8px 12px;background:rgba(10,10,10,0.85);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.45)
+    }
+    #volume-slider{appearance:none;width:100px;height:8px;background:#555;border-radius:6px;outline:none;opacity:.85;transition:opacity .18s}
+    #volume-slider:hover{opacity:1}
+    #volume-slider::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;cursor:pointer}
+    #activity-text{display:inline-block;border-right:2px solid var(--main-color);padding-right:6px;min-width:150px}
+  </style>
 </head>
-<body id="main-body">
-  <div class="stars" id="stars"></div>
-
-  <div class="profile-card">
-    <div class="headline">WOMY</div>
-    
-    <div class="sub-headline" id="lanyard-activity-text">shmurda.world/womy</div>
-    
-    
-    <div class="status-badge" id="lanyard-status-text">ELITE STATUS</div>
-    
-    <div class="nav-links">
-      <a href="index.html">← shmurda home</a>
-      <a href="https://shmurda.world" target="_blank">shmurda.world</a>
-    </div>
+<body>
+  <div class="background-container">
+    <div class="image-background" aria-hidden="true"></div>
+    <video id="video-background" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="revrev.mp4" type="video/mp4">
+    </video>
   </div>
 
-  <script>
-    const mainBody = document.getElementById('main-body');
-    const urlParams = new URLSearchParams(window.location.search);
-    let is_card_mode = false;
+  <div class="video-overlay" aria-hidden="true"></div>
 
+  <audio id="background-music" src="revrev.mp3" autoplay loop playsinline preload="auto"></audio>
+  <div class="volume-control-wrapper" aria-label="Volume control">
+    <span>🔊</span>
+    <input id="volume-slider" type="range" min="0" max="100" value="50" />
+  </div>
 
- 
-    async function updateProfileFromLanyard() {
-       
-        const discordID = 'ulol'; 
-      
-        
-        const lanyardApiUrl = `https://api.lanyard.ws/v1/users/${discordID}`;
-        
-        try {
-            const response = await fetch(lanyardApiUrl);
-            const { success, data } = await response.json();
+  <div class="card" role="region" aria-label="Profile card">
+    <img id="profile-picture" class="pfp" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Profile picture" />
+    <div id="discord-username" class="username">Loading...</div>
 
-            if (success && data) {
-                const statusBadge = document.getElementById('lanyard-status-text');
-                const activityText = document.getElementById('lanyard-activity-text');
-                
-                // 1. Update Status Badge based on Discord Status
-                let statusText = "UNKNOWN";
-                switch(data.discord_status) {
-                    case 'online': statusText = 'ONLINE'; break;
-                    case 'idle': statusText = 'IDLE'; break;
-                    case 'dnd': statusText = 'DO NOT DISTURB'; break;
-                    case 'offline':
-                    case 'invisible': statusText = 'OFFLINE'; break;
-                    default: statusText = 'ELITE STATUS'; break;
-                }
-                statusBadge.textContent = statusText;
-                
-               
-                let currentActivity = 'shmurda.world/womy'; 
-                
-              
-                const primaryActivity = data.activities.find(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
-                
-                if (primaryActivity) {
-                     let detail = primaryActivity.details || primaryActivity.state || primaryActivity.name;
-                     if (detail) {
-                         
-                         currentActivity = `▶️ ${detail.substring(0, 30)}${detail.length > 30 ? '...' : ''}`;
-                     }
-                } 
-                
-                activityText.textContent = currentActivity;
-            }
-        } catch (error) {
-            console.error("Error fetching Lanyard data:", error);
-        }
+    <div class="emoji-bar" id="emoji-bar">
+      <span>🌿</span><span>✨</span><span>💎</span>
+    </div>
+
+    <div class="status">
+      <strong id="discord-status">Checking Status...</strong><br />
+      <span id="activity-text"></span>
+    </div>
+
+    <div class="icons" aria-hidden="false">
+      <a href="https://discord.com/users/1184454687865438218" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/discord/ffffff" alt="Discord" /></a>
+      <a href="https://www.instagram.com/womy.zxc/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram" /></a>
+      <a href="https://www.youtube.com/@womyxyz" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/youtube/ffffff" alt="YouTube" /></a>
+      <a href="https://github.com/womyzxc" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/github/ffffff" alt="Github" /></a>
+    </div>
+
+    <div class="views">👁 Antirevshit</div>
+  </div>
+
+<script>
+
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+  console.log("Right-click is disabled.");
+});
+
+const DISCORD_USER_ID = '1184454687865438218';
+const LANYARD_API = `https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`;
+
+const pfpElement = document.getElementById('profile-picture');
+const usernameElement = document.getElementById('discord-username');
+const statusElement = document.getElementById('discord-status');
+const activityElement = document.getElementById('activity-text');
+
+async function displayLanyardData(data){
+  if (!data || !data.data) {
+    statusElement.textContent = "Offline/API Error";
+    activityElement.textContent = "Could not fetch status.";
+    pfpElement.src = 'https://cdn.discordapp.com/embed/avatars/0.png';
+    return;
+  }
+
+  const profile = data.data;
+  const user = profile.discord_user || {};
+  const name = user.global_name || user.username || "Unknown";
+  usernameElement.textContent = name;
+
+  const avatarHash = user.avatar;
+  const id = user.id;
+  if (avatarHash) {
+    const ext = avatarHash.startsWith("a_") ? "gif" : "png";
+    pfpElement.src = `https://cdn.discordapp.com/avatars/${id}/${avatarHash}.${ext}?size=256`;
+  } else {
+    pfpElement.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+  }
+
+  const discordStatus = profile.discord_status || "offline";
+  const statusMap = { online: "Online", idle: "Idle", dnd: "Do Not Disturb", offline: "Offline" };
+  statusElement.textContent = statusMap[discordStatus] || "Offline";
+
+  startTyping("Hack the Future, One Bit at a Time", 100);
+}
+
+let typingTimer;
+function startTyping(text, speed) {
+  let i = 0;
+  activityElement.textContent = "";
+  function type() {
+    if (i < text.length) {
+      activityElement.textContent += text.charAt(i);
+      i++;
+      typingTimer = setTimeout(type, speed);
+    } else {
+      setTimeout(() => {
+        activityElement.textContent = "";
+        i = 0;
+        type();
+      }, 2000);
     }
+  }
+  type();
+}
 
-    
-    updateProfileFromLanyard(); 
-    setInterval(updateProfileFromLanyard, 5000); 
+async function fetchLanyardData() {
+  try {
+    const res = await fetch(LANYARD_API);
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    displayLanyardData(json);
+  } catch (err) {
+    statusElement.textContent = "API Error";
+    activityElement.textContent = "Check console for details.";
+    console.error("Lanyard fetch failed:", err);
+  }
+}
 
-
-   
-    
-    if (urlParams.get('mode') === 'card') {
-        mainBody.classList.add('embed-card');
-        is_card_mode = true; 
-    } 
-
-    if (!is_card_mode) {
-        
-        const starContainer = document.getElementById('stars');
-        for(let i = 0; i < 40; i++){
-          const star = document.createElement('div');
-          star.classList.add('star');
-          star.style.left = Math.random() * 100 + 'vw';
-          star.style.animationDuration = 5 + Math.random() * 7 + 's';
-          star.style.animationDelay = Math.random() * 5 + 's';
-          starContainer.appendChild(star);
-        }
-
-       
-        let tabText = "@shmurda | womy";          
-        let gap = "                    ";   
-        let fullText = tabText + gap;      
-        let position = 0;
-
-        function ultraSmoothTabScroll() {
-          document.title = fullText.slice(position) + fullText.slice(0, position);
-          position = (position + 1) % fullText.length;
-        }
-        setInterval(ultraSmoothTabScroll, 150);
-    }
-    
-   
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.addEventListener('keydown', function(event) {
-      if (event.key === "F12" || (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "C")) || (event.ctrlKey && event.key === "U")) {
-        event.preventDefault();
-        alert("nice fucking try bitch");
-      }
-    });
-  </script>
+fetchLanyardData();
+setInterval(fetchLanyardData, 30000);
+</script>
 </body>
 </html>
